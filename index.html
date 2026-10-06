@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanderlust Pro — Travel & Booking Management Dashboard</title>
+  <meta name="description"
+    content="Next-generation travel management platform for destinations, trips, customers, bookings, payments, calendar scheduling and real-time analytics.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Chart.js for responsive analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Left Navigation Sidebar -->
+    <aside class="sidebar" id="appSidebar">
+      <div class="sidebar-header">
+        <div class="logo-wrap">
+          <div class="logo-icon">
+            <i class="fa-solid fa-plane-departure"></i>
+          </div>
+          <div class="logo-text">
+            <h2>Wander<span>lust</span></h2>
+            <span class="badge-pro">PRO ERP</span>
+          </div>
+        </div>
+        <button class="sidebar-toggle-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar collapse"
+          title="Toggle Sidebar">
+          <i class="fa-solid fa-angles-left"></i>
+        </button>
+      </div>
+
+      <!-- Quick Agency Metric pill -->
+      <div class="agency-mini-card">
+        <div class="agency-status-dot"></div>
+        <div class="agency-info">
+          <span class="agency-name">Horizon Travel Global</span>
+          <span class="agency-status-text">System Live • 99.98%</span>
+        </div>
+      </div>
+
+      <!-- Main Navigation Menu -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">MANAGEMENT</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#dashboard" class="nav-link active" data-view="dashboard" id="nav-dashboard">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#destinations" class="nav-link" data-view="destinations" id="nav-destinations">
+              <i class="fa-solid fa-earth-americas"></i>
+              <span>Destinations</span>
+              <span class="nav-counter" id="navCountDestinations">12</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#trips" class="nav-link" data-view="trips" id="nav-trips">
+              <i class="fa-solid fa-route"></i>
+              <span>Trips & Tours</span>
+              <span class="nav-counter" id="navCountTrips">15</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#bookings" class="nav-link" data-view="bookings" id="nav-bookings">
+              <i class="fa-solid fa-ticket"></i>
+              <span>Bookings</span>
+              <span class="nav-counter accent-pill" id="navCountBookings">25</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#customers" class="nav-link" data-view="customers" id="nav-customers">
+              <i class="fa-solid fa-users"></i>
+              <span>Customers</span>
+              <span class="nav-counter" id="navCountCustomers">12</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="nav-section-label">OPERATIONS</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#calendar" class="nav-link" data-view="calendar" id="nav-calendar">
+              <i class="fa-regular fa-calendar-days"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#payments" class="nav-link" data-view="payments" id="nav-payments">
+              <i class="fa-solid fa-credit-card"></i>
+              <span>Payments & Invoices</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#analytics" class="nav-link" data-view="analytics" id="nav-analytics">
+              <i class="fa-solid fa-chart-line"></i>
+              <span>Analytics & Reports</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="nav-section-label">SYSTEM</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#settings" class="nav-link" data-view="settings" id="nav-settings">
+              <i class="fa-solid fa-sliders"></i>
+              <span>Settings & Demo Data</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar Footer User Card -->
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+            alt="Admin Avatar" class="user-avatar">
+          <div class="user-details">
+            <span class="user-name">Gokilavani</span>
+            <span class="user-role">Gokilavani</span>
+          </div>
+          <button class="logout-btn" title="Quick Profile Settings"
+            onclick="app.showToast('Logged in as Gokilavani (Admin)', 'info')">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+      <!-- Top Header Navigation -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="header-breadcrumb" id="headerBreadcrumb">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+            <i class="fa-solid fa-chevron-right separator"></i>
+            <strong id="currentViewTitle">Dashboard Overview</strong>
+          </div>
+        </div>
+
+        <!-- Global Header Search -->
+        <div class="header-search-bar">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="globalSearchInput"
+            placeholder="Quick search bookings, trips, customers (Press '/' to focus)..." autocomplete="off">
+          <kbd class="search-kbd">/</kbd>
+          <div class="search-results-dropdown" id="globalSearchResults"></div>
+        </div>
+
+        <!-- Header Actions & Controls -->
+        <div class="header-actions">
+
+          <!-- Currency Switcher -->
+          <div class="header-control-group">
+            <div class="currency-picker-wrap">
+              <select id="currencySelect" class="styled-select-sm" title="Select Display Currency">
+                <option value="USD" selected>USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="JPY">JPY (¥)</option>
+                <option value="AUD">AUD (A$)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dark / Light Theme Toggle -->
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle dark/light theme"
+            title="Toggle Theme">
+            <i class="fa-solid fa-moon moon-icon"></i>
+            <i class="fa-solid fa-sun sun-icon"></i>
+          </button>
+
+          <!-- Notification Bell -->
+          <div class="notification-dropdown-wrap">
+            <button class="icon-btn-badge" id="notificationsBtn" aria-label="View notifications">
+              <i class="fa-regular fa-bell"></i>
+              <span class="badge-dot animate-pulse"></span>
+            </button>
+            <div class="notifications-dropdown-menu" id="notificationsMenu">
+              <div class="notif-header">
+                <h4>Notifications</h4>
+                <button class="btn-text-sm" onclick="app.clearNotifications()">Mark all read</button>
+              </div>
+              <div class="notif-list" id="notificationsList">
+                <!-- Dynamically injected -->
+              </div>
+            </div>
+          </div>
+
+          <!-- New Booking Quick Action Button -->
+          <button class="btn btn-primary btn-glow" id="btnQuickNewBooking" onclick="app.openNewBookingModal()">
+            <i class="fa-solid fa-plus"></i>
+            <span>New Booking</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Dynamic Content Views Container -->
+      <main class="content-area" id="mainContent">
+
+        <!-- ============================================== -->
+        <!-- VIEW 1: DASHBOARD OVERVIEW                     -->
+        <!-- ============================================== -->
+        <section class="view-section active" id="view-dashboard">
+
+          <!-- Dashboard Greeting & Date Range Bar -->
+          <div class="view-header-row">
+            <div>
+              <h1 class="view-title">Dashboard Overview</h1>
+              <p class="view-subtitle">Real-time performance summary of your global travel operations.</p>
+            </div>
+            <div class="header-tools">
+              <div class="date-range-badge">
+                <i class="fa-regular fa-calendar"></i>
+                <span id="overviewDateRangeLabel">Last 30 Days (Real-time)</span>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="app.exportFullReportModal()">
+                <i class="fa-solid fa-file-export"></i>
+                <span>Export Report</span>
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="app.openTripModal()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Create Trip</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- KPI Metric Cards Grid -->
+          <div class="kpi-grid">
+            <div class="kpi-card" data-tilt>
+              <div class="kpi-header">
+                <span class="kpi-label">Total Revenue</span>
+                <div class="kpi-icon-wrap icon-emerald">
+                  <i class="fa-solid fa-vault"></i>
+                </div>
+              </div>
+              <div class="kpi-body">
+                <h3 class="kpi-value" id="kpiTotalRevenue">$0</h3>
+                <div class="kpi-trend positive">
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                  <span>+18.4%</span>
+                  <span class="trend-sub">vs last month</span>
+                </div>
+              </div>
+              <div class="kpi-footer-progress">
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill emerald" style="width: 82%;"></div>
+                </div>
+                <span class="progress-sub">82% of monthly target ($180k)</span>
+              </div>
+            </div>
+
+            <div class="kpi-card" data-tilt>
+              <div class="kpi-header">
+                <span class="kpi-label">Total Bookings</span>
+                <div class="kpi-icon-wrap icon-indigo">
+                  <i class="fa-solid fa-ticket"></i>
+                </div>
+              </div>
+              <div class="kpi-body">
+                <h3 class="kpi-value" id="kpiTotalBookings">0</h3>
+                <div class="kpi-trend positive">
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                  <span>+12.6%</span>
+                  <span class="trend-sub">active volume</span>
+                </div>
+              </div>
+              <div class="kpi-footer-tags">
+                <span class="badge-status badge-confirmed" id="kpiConfirmedCount">0 Confirmed</span>
+                <span class="badge-status badge-pending" id="kpiPendingCount">0 Pending</span>
+              </div>
+            </div>
+
+            <div class="kpi-card" data-tilt>
+              <div class="kpi-header">
+                <span class="kpi-label">Active Expeditions</span>
+                <div class="kpi-icon-wrap icon-cyan">
+                  <i class="fa-solid fa-plane-up"></i>
+                </div>
+              </div>
+              <div class="kpi-body">
+                <h3 class="kpi-value" id="kpiActiveTrips">0</h3>
+                <div class="kpi-trend neutral">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <span id="kpiDestinationsCount">0 destinations</span>
+                </div>
+              </div>
+              <div class="kpi-footer-progress">
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill cyan" style="width: 74%;"></div>
+                </div>
+                <span class="progress-sub" id="kpiOccupancyRate">74% average occupancy rate</span>
+              </div>
+            </div>
+
+            <div class="kpi-card" data-tilt>
+              <div class="kpi-header">
+                <span class="kpi-label">Travelers & VIPs</span>
+                <div class="kpi-icon-wrap icon-rose">
+                  <i class="fa-solid fa-user-check"></i>
+                </div>
+              </div>
+              <div class="kpi-body">
+                <h3 class="kpi-value" id="kpiTotalCustomers">0</h3>
+                <div class="kpi-trend positive">
+                  <i class="fa-solid fa-star text-amber"></i>
+                  <span class="text-white">4.92 / 5.0</span>
+                  <span class="trend-sub">Trip Satisfaction</span>
+                </div>
+              </div>
+              <div class="kpi-footer-tags">
+                <span class="badge-status badge-vip"><i class="fa-solid fa-crown"></i> 4 Platinum VIPs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Analytics Charts Row -->
+          <div class="charts-row">
+            <div class="chart-card flex-2">
+              <div class="chart-card-header">
+                <div>
+                  <h3 class="card-title">Revenue & Booking Dynamics</h3>
+                  <p class="card-subtitle">Monthly revenue trends and volume comparison</p>
+                </div>
+                <div class="chart-controls">
+                  <button class="btn-pill active" onclick="app.updateChartPeriod('year')">This Year</button>
+                  <button class="btn-pill" onclick="app.updateChartPeriod('6m')">Last 6M</button>
+                </div>
+              </div>
+              <div class="chart-container" style="position: relative; height: 310px;">
+                <canvas id="revenueBookingsChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card flex-1">
+              <div class="chart-card-header">
+                <div>
+                  <h3 class="card-title">Bookings by Category</h3>
+                  <p class="card-subtitle">Distribution across travel styles</p>
+                </div>
+              </div>
+              <div class="chart-container" style="position: relative; height: 260px;">
+                <canvas id="categoryDonutChart"></canvas>
+              </div>
+              <div class="category-legend" id="categoryLegendWrap"></div>
+            </div>
+          </div>
+
+          <!-- Secondary Grid: Upcoming Trips & Recent Bookings -->
+          <div class="dashboard-secondary-grid">
+
+            <!-- Recent Bookings Table Widget -->
+            <div class="card-panel flex-3">
+              <div class="panel-header">
+                <div class="panel-title-wrap">
+                  <h3 class="panel-title">Latest Booking Requests</h3>
+                  <span class="badge-counter" id="recentBookingsCounter">5 items</span>
+                </div>
+                <button class="btn btn-secondary btn-xs" onclick="app.navigateTo('bookings')">
+                  <span>View All Bookings</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Booking ID</th>
+                      <th>Traveler</th>
+                      <th>Trip & Destination</th>
+                      <th>Dates</th>
+                      <th>Total</th>
+                      <th>Status</th>
+                      <th>Payment</th>
+                      <th class="text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentBookingsTableBody">
+                    <!-- Dynamic rendering -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Featured Upcoming Expeditions List Widget -->
+            <div class="card-panel flex-2">
+              <div class="panel-header">
+                <div class="panel-title-wrap">
+                  <h3 class="panel-title">Departing Soon</h3>
+                  <span class="badge-counter" id="departingSoonCounter">3 trips</span>
+                </div>
+                <button class="btn btn-secondary btn-xs" onclick="app.navigateTo('trips')">
+                  <span>Explore Trips</span>
+                </button>
+              </div>
+              <div class="upcoming-trips-list" id="upcomingTripsWidgetList">
+                <!-- Dynamically injected -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 2: DESTINATIONS MANAGEMENT               -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-destinations">
+          <div class="view-header-row">
+            <div>
+              <h1 class="view-title">Destinations Portfolio</h1>
+              <p class="view-subtitle">Manage global travel destinations, regional highlights, and popularity ratings.
+              </p>
+            </div>
+            <div class="header-tools">
+              <button class="btn btn-primary" onclick="app.openDestinationModal()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Destination</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Destinations Filter Toolbar -->
+          <div class="filter-toolbar">
+            <div class="search-input-wrap">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="destSearchInput" placeholder="Filter by destination or country..."
+                oninput="app.handleDestinationsFilter()">
+            </div>
+            <div class="filter-group">
+              <select id="destRegionFilter" class="styled-select" onchange="app.handleDestinationsFilter()">
+                <option value="all">All Regions</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Americas">Americas</option>
+                <option value="Africa">Africa</option>
+                <option value="Middle East">Middle East</option>
+                <option value="Oceania">Oceania</option>
+              </select>
+              <select id="destTagFilter" class="styled-select" onchange="app.handleDestinationsFilter()">
+                <option value="all">All Categories</option>
+                <option value="Luxury">Luxury</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Nature">Nature</option>
+                <option value="Beach">Beach</option>
+              </select>
+              <select id="destSortFilter" class="styled-select" onchange="app.handleDestinationsFilter()">
+                <option value="trips-desc">Most Trips</option>
+                <option value="rating-desc">Highest Rated</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="price-asc">Price (Low-High)</option>
+                <option value="price-desc">Price (High-Low)</option>
+              </select>
+            </div>
+            <div class="view-toggle-btns">
+              <button class="view-toggle-btn active" id="destViewGridBtn" onclick="app.setDestViewMode('grid')"
+                title="Grid View">
+                <i class="fa-solid fa-table-cells-large"></i>
+              </button>
+              <button class="view-toggle-btn" id="destViewTableBtn" onclick="app.setDestViewMode('table')"
+                title="Table View">
+                <i class="fa-solid fa-list"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Destinations Grid View Container -->
+          <div class="destinations-grid" id="destinationsGridContainer">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Destinations Table View Container (hidden by default) -->
+          <div class="card-panel" id="destinationsTableContainer" style="display: none;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Destination</th>
+                    <th>Region / Country</th>
+                    <th>Best Season</th>
+                    <th>Active Trips</th>
+                    <th>Avg. Price</th>
+                    <th>Rating</th>
+                    <th>Tags</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="destinationsTableBody">
+                  <!-- Dynamic -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Empty State (if filter returns 0) -->
+          <div class="empty-state" id="destinationsEmptyState" style="display: none;">
+            <div class="empty-icon"><i class="fa-solid fa-earth-americas"></i></div>
+            <h3>No Destinations Found</h3>
+            <p>We couldn't find any destinations matching your active search and filter criteria.</p>
+            <button class="btn btn-secondary" onclick="app.resetDestinationFilters()">Reset Filters</button>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 3: TRIPS & TOURS MANAGEMENT               -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-trips">
+          <div class="view-header-row">
+            <div>
+              <h1 class="view-title">Trips & Tour Packages</h1>
+              <p class="view-subtitle">Manage multi-day travel packages, schedules, day-by-day itineraries, and seat
+                capacity.</p>
+            </div>
+            <div class="header-tools">
+              <button class="btn btn-secondary" onclick="app.exportTripsCSV()">
+                <i class="fa-solid fa-file-csv"></i>
+                <span>Export CSV</span>
+              </button>
+              <button class="btn btn-primary" onclick="app.openTripModal()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Create New Trip</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Trip Filters Toolbar -->
+          <div class="filter-toolbar">
+            <div class="search-input-wrap">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="tripSearchInput" placeholder="Search trips by title, destination, itinerary..."
+                oninput="app.handleTripsFilter()">
+            </div>
+            <div class="filter-group">
+              <select id="tripDestFilter" class="styled-select" onchange="app.handleTripsFilter()">
+                <option value="all">All Destinations</option>
+                <!-- Dynamic destinations -->
+              </select>
+              <select id="tripCategoryFilter" class="styled-select" onchange="app.handleTripsFilter()">
+                <option value="all">All Categories</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Luxury">Luxury</option>
+                <option value="Wildlife">Wildlife</option>
+                <option value="Wellness">Wellness</option>
+                <option value="Cruise">Cruise</option>
+              </select>
+              <select id="tripStatusFilter" class="styled-select" onchange="app.handleTripsFilter()">
+                <option value="all">All Availability</option>
+                <option value="Available">Available</option>
+                <option value="Almost Full">Almost Full</option>
+                <option value="Sold Out">Sold Out</option>
+                <option value="Draft">Draft</option>
+              </select>
+              <select id="tripDifficultyFilter" class="styled-select" onchange="app.handleTripsFilter()">
+                <option value="all">Any Difficulty</option>
+                <option value="Easy">Easy</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Challenging">Challenging</option>
+              </select>
+              <select id="tripSortFilter" class="styled-select" onchange="app.handleTripsFilter()">
+                <option value="date-asc">Departure Date (Earliest)</option>
+                <option value="price-asc">Price (Low to High)</option>
+                <option value="price-desc">Price (High to Low)</option>
+                <option value="seats-desc">Most Seats Available</option>
+                <option value="rating-desc">Highest Rating</option>
+              </select>
+            </div>
+            <div class="view-toggle-btns">
+              <button class="view-toggle-btn active" id="tripViewGridBtn" onclick="app.setTripViewMode('grid')"
+                title="Card Grid View">
+                <i class="fa-solid fa-table-cells-large"></i>
+              </button>
+              <button class="view-toggle-btn" id="tripViewTableBtn" onclick="app.setTripViewMode('table')"
+                title="Table View">
+                <i class="fa-solid fa-list"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Trips Grid Container -->
+          <div class="trips-grid" id="tripsGridContainer">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Trips Table Container (hidden by default) -->
+          <div class="card-panel" id="tripsTableContainer" style="display: none;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Trip Package</th>
+                    <th>Destination</th>
+                    <th>Departure & Return</th>
+                    <th>Duration</th>
+                    <th>Capacity & Booked</th>
+                    <th>Price / Person</th>
+                    <th>Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tripsTableBody">
+                  <!-- Dynamic -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Trips Pagination & Info -->
+          <div class="pagination-bar" id="tripsPaginationBar">
+            <div class="pagination-info" id="tripsPaginationInfo">Showing 1 to 8 of 15 trips</div>
+            <div class="pagination-controls" id="tripsPaginationControls"></div>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="tripsEmptyState" style="display: none;">
+            <div class="empty-icon"><i class="fa-solid fa-route"></i></div>
+            <h3>No Travel Packages Found</h3>
+            <p>No trips match the selected destination, category, or date constraints.</p>
+            <button class="btn btn-secondary" onclick="app.resetTripFilters()">Clear All Filters</button>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 4: BOOKINGS MANAGEMENT                   -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-bookings">
+          <div class="view-header-row">
+            <div>
+              <h1 class="view-title">Bookings & Reservations</h1>
+              <p class="view-subtitle">Full reservation lifecycle management, guest manifests, voucher generation, and
+                payment validation.</p>
+            </div>
+            <div class="header-tools">
+              <button class="btn btn-secondary" onclick="app.exportBookingsCSV()">
+                <i class="fa-solid fa-file-csv"></i>
+                <span>Export CSV</span>
+              </button>
+              <button class="btn btn-primary" onclick="app.openNewBookingModal()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Create Booking</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Status Filter Pills -->
+          <div class="status-tabs-row">
+            <button class="status-tab active" data-status="all" onclick="app.filterBookingsByTab('all')">
+              All Bookings <span class="tab-count" id="tabCountAll">0</span>
+            </button>
+            <button class="status-tab" data-status="Confirmed" onclick="app.filterBookingsByTab('Confirmed')">
+              <span class="tab-dot dot-confirmed"></span> Confirmed <span class="tab-count"
+                id="tabCountConfirmed">0</span>
+            </button>
+            <button class="status-tab" data-status="Pending" onclick="app.filterBookingsByTab('Pending')">
+              <span class="tab-dot dot-pending"></span> Pending <span class="tab-count" id="tabCountPending">0</span>
+            </button>
+            <button class="status-tab" data-status="Completed" onclick="app.filterBookingsByTab('Completed')">
+              <span class="tab-dot dot-completed"></span> Completed <span class="tab-count"
+                id="tabCountCompleted">0</span>
+            </button>
+            <button class="status-tab" data-status="Cancelled" onclick="app.filterBookingsByTab('Cancelled')">
+              <span class="tab-dot dot-cancelled"></span> Cancelled <span class="tab-count"
+                id="tabCountCancelled">0</span>
+            </button>
+          </div>
+
+          <!-- Advanced Filter Toolbar -->
+          <div class="filter-toolbar">
+            <div class="search-input-wrap">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="bookingSearchInput"
+                placeholder="Search by Booking ID, Customer name, email, or Trip..."
+                oninput="app.handleBookingsFilter()">
+            </div>
+            <div class="filter-group">
+              <select id="bookingPaymentFilter" class="styled-select" onchange="app.handleBookingsFilter()">
+                <option value="all">All Payment Statuses</option>
+                <option value="Paid">Paid in Full</option>
+                <option value="Partial">Partial Deposit</option>
+                <option value="Unpaid">Unpaid / Due</option>
+                <option value="Refunded">Refunded</option>
+              </select>
+              <select id="bookingDestFilter" class="styled-select" onchange="app.handleBookingsFilter()">
+                <option value="all">All Destinations</option>
+                <!-- Dynamic -->
+              </select>
+              <div class="date-filter-wrap">
+                <input type="date" id="bookingStartDateFilter" class="styled-input-date"
+                  onchange="app.handleBookingsFilter()" title="Filter From Date">
+                <span class="date-sep">to</span>
+                <input type="date" id="bookingEndDateFilter" class="styled-input-date"
+                  onchange="app.handleBookingsFilter()" title="Filter To Date">
+              </div>
+              <select id="bookingSortFilter" class="styled-select" onchange="app.handleBookingsFilter()">
+                <option value="bookingDate-desc">Latest Booked</option>
+                <option value="travelDate-asc">Travel Date (Upcoming)</option>
+                <option value="totalPrice-desc">Amount (Highest)</option>
+                <option value="totalPrice-asc">Amount (Lowest)</option>
+                <option value="customer-asc">Customer Name (A-Z)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Bookings Table Panel -->
+          <div class="card-panel">
+            <div class="table-responsive">
+              <table class="data-table" id="bookingsMainTable">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="th-sortable" onclick="app.toggleBookingSort('id')">
+                        Booking ID <i class="fa-solid fa-sort"></i>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th-sortable" onclick="app.toggleBookingSort('customer')">
+                        Traveler / Lead Guest <i class="fa-solid fa-sort"></i>
+                      </div>
+                    </th>
+                    <th>Trip & Destination</th>
+                    <th>
+                      <div class="th-sortable" onclick="app.toggleBookingSort('travelDate')">
+                        Travel Dates <i class="fa-solid fa-sort"></i>
+                      </div>
+                    </th>
+                    <th>Guests</th>
+                    <th>
+                      <div class="th-sortable" onclick="app.toggleBookingSort('totalPrice')">
+                        Total Amount <i class="fa-solid fa-sort"></i>
+                      </div>
+                    </th>
+                    <th>Booking Status</th>
+                    <th>Payment</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="bookingsTableBody">
+                  <!-- Dynamically populated with rows -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Table Footer & Pagination -->
+            <div class="table-footer">
+              <div class="rows-per-page">
+                <span>Show:</span>
+                <select id="bookingPageSizeSelect" class="styled-select-xs"
+                  onchange="app.changeBookingPageSize(this.value)">
+                  <option value="8" selected>8 rows</option>
+                  <option value="15">15 rows</option>
+                  <option value="25">25 rows</option>
+                  <option value="50">50 rows</option>
+                </select>
+              </div>
+              <div class="pagination-info" id="bookingsPaginationInfo">Showing 1 to 8 of 25 bookings</div>
+              <div class="pagination-controls" id="bookingsPaginationControls"></div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="bookingsEmptyState" style="display: none;">
+            <div class="empty-icon"><i class="fa-solid fa-ticket"></i></div>
+            <h3>No Bookings Found</h3>
+            <p>No bookings match the specified search query, status tabs, or date boundaries.</p>
+            <button class="btn btn-secondary" onclick="app.resetBookingFilters()">Reset Booking Filters</button>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 5: CUSTOMERS MANAGEMENT                  -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-customers">
+          <div class="view-header-row">
+            <div>
+              <h1 class="view-title">Customer & Traveler Profiles</h1>
+              <p class="view-subtitle">Manage customer directory, loyalty membership tiers, lifetime spend, and
+                emergency contact details.</p>
+            </div>
+            <div class="header-tools">
+              <button class="btn btn-secondary" onclick="app.exportCustomersCSV()">
+                <i class="fa-solid fa-file-csv"></i>
+                <span>Export CSV</span>
+              </button>
+              <button class="btn btn-primary" onclick="app.openCustomerModal()">
+                <i class="fa-solid fa-user-plus"></i>
+                <span>Add Customer</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Customer Filter Toolbar -->
+          <div class="filter-toolbar">
+            <div class="search-input-wrap">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="customerSearchInput"
+                placeholder="Search customer by name, email, phone, or country..."
+                oninput="app.handleCustomersFilter()">
+            </div>
+            <div class="filter-group">
+              <select id="customerTierFilter" class="styled-select" onchange="app.handleCustomersFilter()">
+                <option value="all">All Loyalty Tiers</option>
+                <option value="Platinum VIP">Platinum VIP</option>
+                <option value="Gold">Gold</option>
+                <option value="Silver">Silver</option>
+                <option value="Bronze">Bronze</option>
+              </select>
+              <select id="customerSortFilter" class="styled-select" onchange="app.handleCustomersFilter()">
+                <option value="spend-desc">Highest Total Spend</option>
+                <option value="bookings-desc">Most Bookings</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="recent-desc">Recently Added</option>
+              </select>
+            </div>
+            <div class="view-toggle-btns">
+              <button class="view-toggle-btn active" id="custViewGridBtn" onclick="app.setCustViewMode('grid')"
+                title="Cards Grid">
+                <i class="fa-solid fa-table-cells-large"></i>
+              </button>
+              <button class="view-toggle-btn" id="custViewTableBtn" onclick="app.setCustViewMode('table')"
+                title="Table View">
+                <i class="fa-solid fa-list"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Customers Grid -->
+          <div class="customers-grid" id="customersGridContainer">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Customers Table (Alternative view) -->
+          <div class="card-panel" id="customersTableContainer" style="display: none;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Contact Info</th>
+                    <th>Nationality</th>
+                    <th>Loyalty Tier</th>
+                    <th>Total Bookings</th>
+                    <th>Lifetime Spend</th>
+                    <th>Last Active</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="customersTableBody">
+                  <!-- Dynamic -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination-bar" id="customersPaginationBar">
+            <div class="pagination-info" id="customersPaginationInfo">Showing 1 to 8 of 12 customers</div>
+            <div class="pagination-controls" id="customersPaginationControls"></div>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="customersEmptyState" style="display: none;">
+            <div class="empty-icon"><i class="fa-solid fa-users"></i></div>
+            <h3>No Customers Found</h3>
+            <p>No traveler profiles matched your search or tier filters.</p>
+            <button class="btn btn-secondary" onclick="app.resetCustomerFilters()">Reset Filters</button>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 6: INTERACTIVE CALENDAR                  -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-calendar">
+          <div class="view-header-row">
+            <div>
+              <h1 class="view-title">Trip Departure & Booking Calendar</h1>
+              <p class="view-subtitle">Interactive schedule for upcoming departures, group tours, and return dates.</p>
+            </div>
+            <div class="header-tools">
+              <button class="btn btn-secondary btn-sm" onclick="app.calendarJumpToday()">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span>Today</span>
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="app.openTripModal()">
+                <i class="fa-solid fa-calendar-plus"></i>
+                <span>Schedule Departure</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Calendar Controls Toolbar -->
+          <div class="calendar-toolbar-card">
+            <div class="calendar-nav-buttons">
+              <button class="btn-icon-sq" onclick="app.prevCalendarMonth()" title="Previous Month">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <h2 class="calendar-current-month-label" id="calendarMonthLabel">October 2026</h2>
+              <button class="btn-icon-sq" onclick="app.nextCalendarMonth()" title="Next Month">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+
+            <div class="calendar-legend-pills">
+              <span class="cal-legend-badge bg-tag-adventure"><span class="badge-dot dot-cyan"></span> Adventure</span>
+              <span class="cal-legend-badge bg-tag-cultural"><span class="badge-dot dot-amber"></span> Cultural</span>
+              <span class="cal-legend-badge bg-tag-luxury"><span class="badge-dot dot-purple"></span> Luxury</span>
+              <span class="cal-legend-badge bg-tag-wildlife"><span class="badge-dot dot-emerald"></span>
+                Safari/Nature</span>
+            </div>
+
+            <div class="calendar-filter-wrap">
+              <select id="calendarDestFilter" class="styled-select-sm" onchange="app.renderCalendar()">
+                <option value="all">All Destinations</option>
+                <!-- Dynamic -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Calendar Board Container -->
+          <div class="calendar-board-card">
+            <div class="calendar-weekdays-grid">
+              <div class="cal-weekday">Sun</div>
+              <div class="cal-weekday">Mon</div>
+              <div class="cal-weekday">Tue</div>
+              <div class="cal-weekday">Wed</div>
+              <div class="cal-weekday">Thu</div>
+              <div class="cal-weekday">Fri</div>
+              <div class="cal-weekday">Sat</div>
+            </div>
+            <div class="calendar-days-grid" id="calendarDaysGrid">
+              <!-- Dynamically rendered 35-42 calendar cells -->
+            </div>
+          </div>
+
+          <!-- Calendar Selected Day Trips Drawer / Popover -->
+          <div class="calendar-day-agenda card-panel" id="calendarDayAgendaPanel" style="display: none;">
+            <div class="panel-header">
+              <div>
+                <h4 class="panel-title" id="calendarSelectedDateLabel">Trips Departing on Selected Date</h4>
+                <p class="panel-subtitle" id="calendarSelectedDateSub">2 active expeditions</p>
+              </div>
+              <button class="btn-icon-sq" onclick="app.closeCalendarAgenda()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="calendar-agenda-list" id="calendarAgendaList">
+              <!-- Injected -->
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 7: PAYMENTS & INVOICES                   -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-payments">
+          <div class="view-header-row">
+            <div>
+              <h1 class="view-title">Payments & Financial Records</h1>
+              <p class="view-subtitle">Track transaction history, paid deposits, pending invoices, and revenue
+                breakdown.</p>
+            </div>
+            <div class="header-tools">
+              <button class="btn btn-secondary" onclick="app.exportPaymentsCSV()">
+                <i class="fa-solid fa-file-csv"></i>
+                <span>Export Ledger</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Financial Overview Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Collected Payments</span>
+                <div class="kpi-icon-wrap icon-emerald"><i class="fa-solid fa-circle-dollar-to-slot"></i></div>
+              </div>
+              <div class="kpi-body">
+                <h3 class="kpi-value" id="kpiCollectedAmount">$0</h3>
+                <span class="progress-sub" id="kpiCollectedSub">21 transactions finalized</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Pending Invoices</span>
+                <div class="kpi-icon-wrap icon-amber"><i class="fa-solid fa-clock"></i></div>
+              </div>
+              <div class="kpi-body">
+                <h3 class="kpi-value" id="kpiPendingInvoicesAmount">$0</h3>
+                <span class="progress-sub" id="kpiPendingInvoicesSub">4 bookings awaiting settlement</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Refunds & Adjustments</span>
+                <div class="kpi-icon-wrap icon-rose"><i class="fa-solid fa-rotate-left"></i></div>
+              </div>
+              <div class="kpi-body">
+                <h3 class="kpi-value" id="kpiRefundsAmount">$0</h3>
+                <span class="progress-sub">1 processed refund</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Average Order Value (AOV)</span>
+                <div class="kpi-icon-wrap icon-purple"><i class="fa-solid fa-chart-simple"></i></div>
+              </div>
+              <div class="kpi-body">
+                <h3 class="kpi-value" id="kpiAOV">$0</h3>
+                <span class="progress-sub">Per reservation package</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Ledger Table -->
+          <div class="card-panel">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <h3 class="panel-title">Transaction & Payment Ledger</h3>
+                <span class="badge-counter" id="paymentLedgerCounter">25 records</span>
+              </div>
+              <div class="filter-group">
+                <select id="paymentsFilterStatus" class="styled-select-sm" onchange="app.handlePaymentsFilter()">
+                  <option value="all">All Payment Statuses</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Partial">Partial</option>
+                  <option value="Unpaid">Unpaid</option>
+                  <option value="Refunded">Refunded</option>
+                </select>
+                <select id="paymentsFilterMethod" class="styled-select-sm" onchange="app.handlePaymentsFilter()">
+                  <option value="all">All Methods</option>
+                  <option value="Credit Card">Credit Card</option>
+                  <option value="Wire Transfer">Bank Wire</option>
+                  <option value="PayPal">PayPal</option>
+                  <option value="Apple Pay">Apple Pay</option>
+                  <option value="Crypto">Crypto</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Invoice / ID</th>
+                    <th>Booking Reference</th>
+                    <th>Traveler</th>
+                    <th>Payment Method</th>
+                    <th>Amount</th>
+                    <th>Payment Status</th>
+                    <th>Date Paid / Due</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="paymentsTableBody">
+                  <!-- Injected -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 8: ANALYTICS & REPORTS                   -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-analytics">
+          <div class="view-header-row">
+            <div>
+              <h1 class="view-title">Analytics & Intelligence</h1>
+              <p class="view-subtitle">Detailed reporting on occupancy, customer demographics, popular routes, and
+                revenue metrics.</p>
+            </div>
+            <div class="header-tools">
+              <button class="btn btn-secondary" onclick="app.exportFullReportModal()">
+                <i class="fa-solid fa-download"></i>
+                <span>Download Report Package</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Analytics Charts Grid -->
+          <div class="charts-row">
+            <div class="chart-card flex-1">
+              <div class="chart-card-header">
+                <div>
+                  <h3 class="card-title">Bookings by Destination</h3>
+                  <p class="card-subtitle">Volume of travelers per destination</p>
+                </div>
+              </div>
+              <div class="chart-container" style="position: relative; height: 320px;">
+                <canvas id="destBookingsBarChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card flex-1">
+              <div class="chart-card-header">
+                <div>
+                  <h3 class="card-title">Payment Status Breakdown</h3>
+                  <p class="card-subtitle">Settlement health ratio</p>
+                </div>
+              </div>
+              <div class="chart-container" style="position: relative; height: 320px;">
+                <canvas id="paymentStatusDoughnutChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Performing Packages Table & Demographics -->
+          <div class="dashboard-secondary-grid">
+            <div class="card-panel flex-3">
+              <div class="panel-header">
+                <h3 class="panel-title">Top Performing Trip Packages</h3>
+                <span class="badge-status badge-confirmed">Ranked by Gross Revenue</span>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Trip Package</th>
+                      <th>Destination</th>
+                      <th>Bookings Count</th>
+                      <th>Occupancy</th>
+                      <th>Gross Revenue</th>
+                      <th>Avg Rating</th>
+                    </tr>
+                  </thead>
+                  <tbody id="analyticsTopTripsTableBody">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card-panel flex-2">
+              <div class="panel-header">
+                <h3 class="panel-title">Traveler Loyalty Distribution</h3>
+              </div>
+              <div class="loyalty-breakdown-list" id="loyaltyBreakdownList">
+                <!-- Injected stats -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 9: SETTINGS & DEMO DATA CONTROLS         -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-settings">
+          <div class="view-header-row">
+            <div>
+              <h1 class="view-title">System Settings & Data Control</h1>
+              <p class="view-subtitle">Configure agency preferences, currency defaults, and manage LocalStorage database
+                seed states.</p>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <div class="card-panel">
+              <div class="panel-header">
+                <h3 class="panel-title"><i class="fa-solid fa-building me-2"></i> Agency Information</h3>
+              </div>
+              <div class="settings-form">
+                <div class="form-group">
+                  <label class="form-label">Agency Name</label>
+                  <input type="text" class="styled-input" id="settingAgencyName" value="Horizon Travel Global LLC">
+                </div>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label">Contact Email</label>
+                    <input type="email" class="styled-input" id="settingAgencyEmail" value="ops@horizontravel.com">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Support Phone</label>
+                    <input type="text" class="styled-input" id="settingAgencyPhone" value="+1 (800) 555-8747">
+                  </div>
+                </div>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label">Default Base Currency</label>
+                    <select class="styled-select" id="settingBaseCurrency">
+                      <option value="USD">USD ($ - US Dollar)</option>
+                      <option value="EUR">EUR (€ - Euro)</option>
+                      <option value="GBP">GBP (£ - British Pound)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Tax / VAT Rate (%)</label>
+                    <input type="number" class="styled-input" id="settingTaxRate" value="8.5">
+                  </div>
+                </div>
+                <button class="btn btn-primary" onclick="app.saveAgencySettings()">
+                  <i class="fa-solid fa-floppy-disk"></i>
+                  <span>Save Agency Settings</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="card-panel">
+              <div class="panel-header">
+                <h3 class="panel-title"><i class="fa-solid fa-database me-2"></i> Database & LocalStorage Seed
+                  Management</h3>
+              </div>
+              <div class="data-management-content">
+                <p class="text-secondary mb-4">
+                  The dashboard stores destinations, trips, customers, and bookings inside your browser's persistent
+                  <code>localStorage</code>. You can generate additional test data, export a complete JSON snapshot, or
+                  restore factory defaults anytime.
+                </p>
+
+                <div class="data-action-buttons">
+                  <button class="btn btn-secondary" onclick="app.exportDatabaseJSON()">
+                    <i class="fa-solid fa-file-code"></i>
+                    <span>Export JSON Backup</span>
+                  </button>
+                  <button class="btn btn-secondary" onclick="app.generateRandomBooking()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>Generate Mock Booking</span>
+                  </button>
+                  <button class="btn btn-danger" onclick="app.confirmResetDatabase()">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Reset to Initial Demo Dataset</span>
+                  </button>
+                </div>
+
+                <div class="database-stats-box mt-4">
+                  <div class="stat-pill"><strong id="dbCountDest">12</strong> Destinations</div>
+                  <div class="stat-pill"><strong id="dbCountTrips">15</strong> Trips</div>
+                  <div class="stat-pill"><strong id="dbCountCust">12</strong> Customers</div>
+                  <div class="stat-pill"><strong id="dbCountBook">25</strong> Bookings</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+
+  <!-- ==================================================== -->
+  <!-- MODALS CONTAINER                                     -->
+  <!-- ==================================================== -->
+
+  <!-- 1. TRIP MODAL (Create / Edit / View Itinerary) -->
+  <div class="modal-backdrop" id="tripModalBackdrop">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <h3 class="modal-title" id="tripModalTitle">Create Travel Package</h3>
+          <p class="modal-subtitle">Configure tour parameters, day-by-day itinerary, pricing, and seat allocation.</p>
+        </div>
+        <button class="modal-close-btn" onclick="app.closeTripModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="tripForm" onsubmit="app.handleTripFormSubmit(event)">
+        <input type="hidden" id="tripFormId">
+        <div class="modal-body">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label required">Trip Package Title</label>
+              <input type="text" class="styled-input" id="tripTitleInput"
+                placeholder="e.g. Kyoto Imperial Autumn & Bamboo Groves" required>
+              <span class="field-error" id="tripTitleError"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Destination</label>
+              <select class="styled-select" id="tripDestInput" required>
+                <!-- Injected destinations -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label required">Category</label>
+              <select class="styled-select" id="tripCategoryInput" required>
+                <option value="Adventure">Adventure</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Luxury">Luxury</option>
+                <option value="Wildlife">Wildlife</option>
+                <option value="Wellness">Wellness</option>
+                <option value="Cruise">Cruise</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Difficulty</label>
+              <select class="styled-select" id="tripDifficultyInput" required>
+                <option value="Easy">Easy (All Ages)</option>
+                <option value="Moderate">Moderate (Active Walkers)</option>
+                <option value="Challenging">Challenging (High Fitness)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Status</label>
+              <select class="styled-select" id="tripStatusInput" required>
+                <option value="Available">Available</option>
+                <option value="Almost Full">Almost Full</option>
+                <option value="Sold Out">Sold Out</option>
+                <option value="Draft">Draft</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label required">Departure Date</label>
+              <input type="date" class="styled-input" id="tripDepartureInput" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Return Date</label>
+              <input type="date" class="styled-input" id="tripReturnInput" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Price / Person ($)</label>
+              <input type="number" class="styled-input" id="tripPriceInput" min="50" max="99999" placeholder="2450"
+                required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label required">Total Max Capacity (Seats)</label>
+              <input type="number" class="styled-input" id="tripCapacityInput" min="1" max="100" placeholder="16"
+                required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cover Image URL</label>
+              <input type="url" class="styled-input" id="tripImageInput" placeholder="https://images.unsplash.com/...">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">Overview & Highlights</label>
+            <textarea class="styled-textarea" id="tripDescriptionInput" rows="3"
+              placeholder="Summary of this incredible journey, main landmarks visited, and unique cultural experiences..."
+              required></textarea>
+          </div>
+
+          <!-- Day-by-Day Itinerary Builder -->
+          <div class="itinerary-builder-section">
+            <div class="itinerary-header">
+              <label class="form-label">Day-by-Day Itinerary Schedule</label>
+              <button type="button" class="btn btn-secondary btn-xs" onclick="app.addItineraryDayRow()">
+                <i class="fa-solid fa-plus"></i> Add Day
+              </button>
+            </div>
+            <div class="itinerary-days-container" id="itineraryDaysContainer">
+              <!-- Dynamically populated day rows -->
+            </div>
+          </div>
+
+          <!-- Inclusions & Exclusions -->
+          <div class="form-row-2 mt-3">
+            <div class="form-group">
+              <label class="form-label">Included (Comma separated)</label>
+              <input type="text" class="styled-input" id="tripInclusionsInput"
+                placeholder="5-star hotel, Daily breakfast, Private coach, Expert guide, Park entry">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Excluded (Comma separated)</label>
+              <input type="text" class="styled-input" id="tripExclusionsInput"
+                placeholder="International flights, Personal insurance, Alcoholic drinks">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.closeTripModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="tripSubmitBtn">Save Travel Package</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- 2. DESTINATION MODAL (Add / Edit) -->
+  <div class="modal-backdrop" id="destModalBackdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <h3 class="modal-title" id="destModalTitle">Add New Destination</h3>
+          <p class="modal-subtitle">Expand your travel portfolio with a new global location.</p>
+        </div>
+        <button class="modal-close-btn" onclick="app.closeDestinationModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="destForm" onsubmit="app.handleDestFormSubmit(event)">
+        <input type="hidden" id="destFormId">
+        <div class="modal-body">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label required">Destination Name / City</label>
+              <input type="text" class="styled-input" id="destNameInput" placeholder="e.g. Kyoto, Amalfi Coast, Bali"
+                required>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Country</label>
+              <input type="text" class="styled-input" id="destCountryInput" placeholder="e.g. Japan, Italy, Indonesia"
+                required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label required">Region</label>
+              <select class="styled-select" id="destRegionInput" required>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Americas">Americas</option>
+                <option value="Africa">Africa</option>
+                <option value="Middle East">Middle East</option>
+                <option value="Oceania">Oceania</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Best Travel Season</label>
+              <input type="text" class="styled-input" id="destSeasonInput" placeholder="e.g. Mar - May, Oct - Dec"
+                required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">Average Base Price ($)</label>
+              <input type="number" class="styled-input" id="destAvgPriceInput" placeholder="1850" min="100">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Categories / Tags (comma separated)</label>
+              <input type="text" class="styled-input" id="destTagsInput"
+                placeholder="Cultural, Luxury, Nature, Historic">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Cover Image URL</label>
+            <input type="url" class="styled-input" id="destImageInput" placeholder="https://images.unsplash.com/...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">Description & Highlights</label>
+            <textarea class="styled-textarea" id="destDescriptionInput" rows="3"
+              placeholder="Brief scenic overview and selling points..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.closeDestinationModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Destination</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- 3. CUSTOMER MODAL (Add / Edit / View Profile) -->
+  <div class="modal-backdrop" id="customerModalBackdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <h3 class="modal-title" id="customerModalTitle">Add Customer Profile</h3>
+          <p class="modal-subtitle">Traveler contact details, passport reference, and loyalty level.</p>
+        </div>
+        <button class="modal-close-btn" onclick="app.closeCustomerModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="customerForm" onsubmit="app.handleCustomerFormSubmit(event)">
+        <input type="hidden" id="customerFormId">
+        <div class="modal-body">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label required">Full Name</label>
+              <input type="text" class="styled-input" id="custNameInput" placeholder="e.g. Sarah Jenkins" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Email Address</label>
+              <input type="email" class="styled-input" id="custEmailInput" placeholder="sarah.jenkins@example.com"
+                required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label required">Phone Number</label>
+              <input type="tel" class="styled-input" id="custPhoneInput" placeholder="+1 (555) 234-5678" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Nationality</label>
+              <input type="text" class="styled-input" id="custNationalityInput" placeholder="United States" required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">Loyalty Tier</label>
+              <select class="styled-select" id="custTierInput">
+                <option value="Bronze">Bronze Member</option>
+                <option value="Silver">Silver Member</option>
+                <option value="Gold">Gold VIP</option>
+                <option value="Platinum VIP">Platinum VIP Elite</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Passport Number (Encrypted)</label>
+              <input type="text" class="styled-input" id="custPassportInput" placeholder="US-9842189">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Avatar Image URL</label>
+            <input type="url" class="styled-input" id="custAvatarInput"
+              placeholder="https://images.unsplash.com/photo-...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Special Preferences & Dietary Notes</label>
+            <textarea class="styled-textarea" id="custNotesInput" rows="2"
+              placeholder="Vegetarian, window seat preference, emergency contact details..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.closeCustomerModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Traveler Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- 4. NEW BOOKING MULTI-STEP MODAL -->
+  <div class="modal-backdrop" id="newBookingModalBackdrop">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <h3 class="modal-title">Create Reservation Wizard</h3>
+          <p class="modal-subtitle">Step-by-step reservation workflow with seat check & invoice calculation.</p>
+        </div>
+        <button class="modal-close-btn" onclick="app.closeNewBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Booking Wizard Steps indicator -->
+      <div class="wizard-steps-bar">
+        <div class="wizard-step active" id="wzStep1Indicator">
+          <div class="step-num">1</div>
+          <div class="step-label">Select Package</div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="wizard-step" id="wzStep2Indicator">
+          <div class="step-num">2</div>
+          <div class="step-label">Traveler Info</div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="wizard-step" id="wzStep3Indicator">
+          <div class="step-num">3</div>
+          <div class="step-label">Add-ons & Payment</div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- STEP 1: Select Trip Package -->
+        <div class="wizard-tab-content active" id="wzStep1">
+          <div class="form-group">
+            <label class="form-label required">Choose Trip Expedition</label>
+            <select class="styled-select" id="wzTripSelect" onchange="app.handleWizardTripChange()" required>
+              <option value="">-- Choose an available package --</option>
+              <!-- Populated -->
+            </select>
+          </div>
+
+          <!-- Trip summary preview card -->
+          <div class="wizard-trip-preview card-panel mt-3" id="wzTripPreviewCard" style="display: none;">
+            <div class="preview-flex">
+              <img id="wzTripPreviewImg" src="" alt="Trip Preview" class="preview-thumb">
+              <div class="preview-body">
+                <h4 id="wzTripPreviewTitle">Title</h4>
+                <div class="preview-meta">
+                  <span id="wzTripPreviewDest"><i class="fa-solid fa-location-dot"></i> Destination</span>
+                  <span id="wzTripPreviewDates"><i class="fa-regular fa-calendar"></i> Dates</span>
+                  <span id="wzTripPreviewSeats" class="badge-status badge-confirmed"><i class="fa-solid fa-chair"></i>
+                    Seats</span>
+                </div>
+                <div class="preview-price-tag">
+                  <span class="price-val" id="wzTripPreviewPrice">$0</span> <span class="per-person">/ traveler</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row-2 mt-3">
+            <div class="form-group">
+              <label class="form-label required">Number of Travelers / Guests</label>
+              <input type="number" class="styled-input" id="wzGuestCountInput" min="1" max="10" value="1"
+                oninput="app.recalculateWizardTotal()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Room Preference</label>
+              <select class="styled-select" id="wzRoomPrefSelect">
+                <option value="Single Room">Single Room</option>
+                <option value="Double / Queen Bed" selected>Double / Queen Bed</option>
+                <option value="Twin Beds">Twin Beds</option>
+                <option value="Luxury Suite (+15%)">Luxury Suite (+15%)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Lead Customer Details -->
+        <div class="wizard-tab-content" id="wzStep2" style="display: none;">
+          <div class="form-group">
+            <label class="form-label required">Select Existing Customer or Create New</label>
+            <select class="styled-select" id="wzCustomerSelect" onchange="app.handleWizardCustomerSelect()">
+              <option value="">-- Select from customer directory --</option>
+              <!-- Populated -->
+              <option value="NEW_CUSTOMER">+ Add New Customer Now...</option>
+            </select>
+          </div>
+
+          <div id="wzNewCustomerFields" style="display: none;" class="new-cust-card">
+            <h4 class="mb-2 text-primary font-semibold">New Traveler Details</h4>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label required">Full Name</label>
+                <input type="text" class="styled-input" id="wzCustName" placeholder="Alex Rivera">
+              </div>
+              <div class="form-group">
+                <label class="form-label required">Email</label>
+                <input type="email" class="styled-input" id="wzCustEmail" placeholder="alex@example.com">
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label required">Phone</label>
+                <input type="tel" class="styled-input" id="wzCustPhone" placeholder="+1 555-0199">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nationality</label>
+                <input type="text" class="styled-input" id="wzCustNationality" placeholder="Canada">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label class="form-label">Special Requests & Emergency Contact</label>
+            <textarea class="styled-textarea" id="wzSpecialRequests" rows="2"
+              placeholder="Airport pickup required, dietary restrictions, emergency contact details..."></textarea>
+          </div>
+        </div>
+
+        <!-- STEP 3: Add-ons & Settlement -->
+        <div class="wizard-tab-content" id="wzStep3" style="display: none;">
+          <h4 class="font-semibold text-primary mb-2">Optional Protection & Concierge Add-ons</h4>
+          <div class="addons-grid">
+            <label class="addon-checkbox-card">
+              <input type="checkbox" id="wzAddonInsurance" onchange="app.recalculateWizardTotal()">
+              <div class="addon-info">
+                <div class="addon-title">Comprehensive Travel Insurance</div>
+                <div class="addon-sub">Medical, baggage, and trip cancellation protection</div>
+              </div>
+              <div class="addon-cost">+$149/pp</div>
+            </label>
+
+            <label class="addon-checkbox-card">
+              <input type="checkbox" id="wzAddonTransfer" onchange="app.recalculateWizardTotal()">
+              <div class="addon-info">
+                <div class="addon-title">VIP Private Airport Transfers</div>
+                <div class="addon-sub">Chauffeured luxury vehicle both ways</div>
+              </div>
+              <div class="addon-cost">+$120 total</div>
+            </label>
+
+            <label class="addon-checkbox-card">
+              <input type="checkbox" id="wzAddonGuide" onchange="app.recalculateWizardTotal()">
+              <div class="addon-info">
+                <div class="addon-title">Private Expert Guide & Photography</div>
+                <div class="addon-sub">Dedicated private day excursion guide</div>
+              </div>
+              <div class="addon-cost">+$280 total</div>
+            </label>
+          </div>
+
+          <div class="form-row-2 mt-4">
+            <div class="form-group">
+              <label class="form-label required">Payment Status</label>
+              <select class="styled-select" id="wzPaymentStatusSelect">
+                <option value="Paid">Paid in Full (100%)</option>
+                <option value="Partial">Partial Deposit (30%)</option>
+                <option value="Unpaid">Unpaid / Send Invoice</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Payment Method</label>
+              <select class="styled-select" id="wzPaymentMethodSelect">
+                <option value="Credit Card">Credit Card (Stripe/Visa/Mastercard)</option>
+                <option value="Wire Transfer">Bank Wire Transfer</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Apple Pay">Apple Pay</option>
+                <option value="Crypto">Crypto (BTC/USDC)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Total Calculation Ledger -->
+          <div class="checkout-summary-box mt-3">
+            <div class="summary-line">
+              <span>Base Package (<span id="wzSummaryGuestCount">1</span> guests × <span
+                  id="wzSummaryBasePrice">$0</span>)</span>
+              <strong id="wzSummaryBaseTotal">$0</strong>
+            </div>
+            <div class="summary-line" id="wzSummaryAddonsRow" style="display: none;">
+              <span>Selected Add-ons</span>
+              <strong id="wzSummaryAddonsTotal">+$0</strong>
+            </div>
+            <div class="summary-line">
+              <span>Taxes & Service Fees (8.5%)</span>
+              <strong id="wzSummaryTaxTotal">$0</strong>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-line summary-grand-total">
+              <span>Grand Total Amount</span>
+              <span class="total-highlight" id="wzSummaryGrandTotal">$0</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="wzPrevBtn" onclick="app.prevWizardStep()"
+          style="display: none;">Back</button>
+        <div class="footer-spacer"></div>
+        <button type="button" class="btn btn-secondary" onclick="app.closeNewBookingModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="wzNextBtn" onclick="app.nextWizardStep()">Continue to Traveler
+          Info</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 5. BOOKING DETAILS & VOUCHER MODAL -->
+  <div class="modal-backdrop" id="bookingDetailsModalBackdrop">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header no-print">
+        <div class="modal-title-wrap">
+          <h3 class="modal-title">Booking Confirmation Voucher</h3>
+          <p class="modal-subtitle">Official itinerary voucher & payment confirmation receipt.</p>
+        </div>
+        <div class="modal-actions-right">
+          <button class="btn btn-secondary btn-xs" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> Print Voucher
+          </button>
+          <button class="modal-close-btn" onclick="app.closeBookingDetailsModal()"><i
+              class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="modal-body printable-voucher" id="bookingVoucherContent">
+        <!-- Dynamically injected printable voucher template -->
+      </div>
+      <div class="modal-footer no-print">
+        <div class="status-quick-toggles" id="voucherQuickToggles">
+          <!-- Status buttons -->
+        </div>
+        <div class="footer-spacer"></div>
+        <button type="button" class="btn btn-secondary" onclick="app.closeBookingDetailsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 6. CONFIRMATION MODAL (Reusable) -->
+  <div class="modal-backdrop" id="confirmModalBackdrop">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-header">
+        <div class="confirm-icon-wrap" id="confirmIconWrap">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <button class="modal-close-btn" onclick="app.closeConfirmModal(false)"><i
+            class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body text-center">
+        <h3 class="confirm-title" id="confirmModalTitle">Are you sure?</h3>
+        <p class="confirm-message" id="confirmModalMessage">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer justify-center">
+        <button type="button" class="btn btn-secondary" onclick="app.closeConfirmModal(false)">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmModalActionBtn"
+          onclick="app.closeConfirmModal(true)">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 7. TRIP DETAILS VIEW MODAL (Itinerary & Day by day showcase) -->
+  <div class="modal-backdrop" id="tripDetailsModalBackdrop">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <h3 class="modal-title" id="tripViewModalTitle">Trip Details & Day-by-Day Itinerary</h3>
+          <p class="modal-subtitle" id="tripViewModalSubtitle">Complete expedition schedule, inclusions & booking
+            overview.</p>
+        </div>
+        <button class="modal-close-btn" onclick="app.closeTripDetailsModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="tripViewModalContent">
+        <!-- Dynamically injected -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="app.closeTripDetailsModal()">Close</button>
+        <button type="button" class="btn btn-primary" id="tripViewBookBtn">Book This Trip</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Toast Notifications Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Javascript Modules -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
